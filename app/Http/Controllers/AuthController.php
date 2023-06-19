@@ -14,8 +14,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('username', 'password');
-        if ($credentials['username'] === 'admin' && $credentials['password'] === 'password') {
-            return redirect()->route('dashboard');
+        if ($credentials['username'] === 'magenta' && $credentials['password'] === 'rahasia') {
+            return redirect('/dashboard');
         } else {
             return redirect()->back()->withErrors('Username atau password salah.');}
         }

@@ -8,8 +8,28 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// });
+
+Route::post('/login', function () {
+    $credentials = request()->only('username', 'password');
+
+    // Simpan informasi login ke session
+    session($credentials);
+
+    return redirect('/dashboard');
+});
+
+Route::get('/dashboard', function () {
+    // Periksa apakah pengguna sudah login
+    if (session()->has('username')) {
+        return view('dashboard');
+    } else {
+        return redirect('/');
+    }
 });

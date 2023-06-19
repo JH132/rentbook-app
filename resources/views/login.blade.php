@@ -79,11 +79,11 @@
             @csrf
             <div style="margin-bottom: 15px;">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}">
+                <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}" required>
             </div>
             <div style="margin-bottom: 15px;">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" id="password" class="form-control">
+                <input type="password" name="password" id="password" class="form-control" required>
             </div>
             <div>
                 @error('username')
