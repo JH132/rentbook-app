@@ -77,11 +77,11 @@
         </div>
         <form action="{{ route('login') }}" method="post">
             @csrf
-            <div >
+            <div style="margin-bottom: 15px;">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}">
             </div>
-            <div>
+            <div style="margin-bottom: 15px;">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" name="password" id="password" class="form-control">
             </div>
