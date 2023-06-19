@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Create Buku</title>
+    <title>Edit Buku</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   </head>
   <body>
     <div class="container">
-      <h1>Create Buku</h1>
+      <h1>Edit Buku</h1>
       <div class="text-right">
         <a href="{{ route('buku.index') }}" class="btn btn-secondary">Kembali</a>
       </div>
