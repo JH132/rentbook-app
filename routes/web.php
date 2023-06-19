@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +11,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BukuController;
 
 Route::get('/', function () {
@@ -32,3 +32,17 @@ Route::get('/buku/{id_buku}/update', [BukuController::class, 'update'])->name('b
 
 
 
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+Route::get('/dashboard', function () {
+    // Periksa apakah pengguna sudah login
+    if (session()->has('username')) {
+        return view('dashboard');
+    } else {
+        return redirect('/');
+    }
+});
