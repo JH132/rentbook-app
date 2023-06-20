@@ -7,14 +7,9 @@
 <body>
     <div class="container">
         <h1>Detail Peminjaman</h1>
-        <div class="d-flex justify-content-end">
-            <a href="#" class="btn btn-info">Edit</a>
-            <form  id="deleteForm" action="{{ route('peminjaman.delete', $peminjaman->id_peminjaman) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
-            </form>
-        </div>
+        <div class="text-right">
+            <a href="{{ route('peminjaman.edit', $peminjaman->id_peminjaman) }}" class="btn btn-info">Edit</a>
+            <a href="{{ route('peminjaman.index') }}" class="btn btn-secondary">Kembali</a>
         </div>
         <br>
         <table class="table">
