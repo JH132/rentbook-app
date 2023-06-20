@@ -48,13 +48,6 @@
                 </tr>
             </tbody>
         </table>
-        <div class="text-right">
-            <form  id="deleteForm" action="{{ route('peminjaman.delete', $peminjaman->id_peminjaman) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
-            </form>
-        </div>
     </div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <!-- Tambahkan SweetAlert CSS dan JavaScript -->

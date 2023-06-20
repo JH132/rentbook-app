@@ -7,10 +7,24 @@ use App\Models\Buku;
 
 class BukuController extends Controller
 {
-    public function index()
-{
-    return view('buku.index')->with('bukus', Buku::all());
-}
+    public function index(Request $request)
+    {
+        $bukus = Buku::query();
+    
+        $search = $request->input('search');
+        if ($search) {
+            $bukus->where(function ($query) use ($search) {
+                $query->where('id_buku', 'like', '%' . $search . '%')
+                    ->orWhere('judul', 'like', '%' . $search . '%')
+                    ->orWhere('kategori', 'like', '%' . $search . '%');
+            });
+        }
+    
+        $bukus = $bukus->get();
+    
+        return view('buku.index', compact('bukus'));
+    }
+    
 
 public function detail($id_buku)
 {

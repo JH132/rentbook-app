@@ -4,9 +4,12 @@
     <title>Detail Buku</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
+        body{
+            margin: 20px
+        }
         .modal {
             display: none;
-            position: fixed;
+            position: fixed;  
             z-index: 1;
             left: 0;
             top: 0;
@@ -41,9 +44,18 @@
 </head>
 <body>
     <div class="container">
+        <a href="#">Home/</a>
+        <a href="{{ route('buku.index') }}">Buku</a>
         <h1>Detail Buku</h1>
         <div class="text-right">
-            <a href="{{ route('buku.edit', $buku->id_buku) }}" class="btn btn-info">Edit</a>
+            <div class="d-flex justify-content-end">
+                <a href="{{ route('buku.edit', $buku->id_buku) }}" class="btn btn-info mr-2">Edit</a>
+                <form id="deleteForm" action="{{ route('buku.delete', $buku->id_buku) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
+                </form>
+            </div>
         </div>
         <br>  
         <table class="table">
@@ -86,28 +98,15 @@
                 </tr>
             </tbody>
         </table>
-        <div class="text-right">
-            <form  id="deleteForm" action="{{ route('buku.delete', $buku->id_buku) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
-            </form>
+        
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.all.min.js"></script>
-        <script>
-            document.getElementById('confirmDelete').addEventListener('click', function() {
-                var confirmDelete = confirm('Apakah Anda yakin ingin menghapus buku?');
-                if (confirmDelete) {
-                    document.getElementById('deleteForm').submit();
-                }
-            });
-        </script>
         <script>
             // Fungsi untuk menampilkan pop-up konfirmasi menggunakan SweetAlert
             function confirmDelete() {
                 Swal.fire({
                     title: 'Konfirmasi',
-                    text: 'Apakah Anda yakin ingin menghapus data peminjaman?',
+                    text: 'Apakah Anda yakin ingin menghapus data buku?',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Hapus',
@@ -120,7 +119,6 @@
                 });
             }
         </script>
-        </div>
     </div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
