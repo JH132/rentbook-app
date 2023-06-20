@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BukuController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,6 +38,19 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
+
+
+Route::get('/peminjaman/create', [PeminjamanController::class, 'create'])->name('peminjaman.create');
+Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('peminjaman.store');
+Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
+Route::post('/peminjaman/update-status', [PeminjamanController::class, 'updateStatus'])->name('peminjaman.updateStatus');
+Route::get('/peminjaman/{id_peminjaman}', [PeminjamanController::class, 'detail'])->name('peminjaman.detail');
+Route::delete('/peminjaman/{id_peminjaman}', [PeminjamanController::class, 'delete'])->name('peminjaman.delete');
+
+
+
+
+
 Route::get('/dashboard', function () {
     // Periksa apakah pengguna sudah login
     if (session()->has('username')) {
@@ -46,3 +59,4 @@ Route::get('/dashboard', function () {
         return redirect('/');
     }
 });
+

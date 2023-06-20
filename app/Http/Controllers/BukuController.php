@@ -11,6 +11,7 @@ class BukuController extends Controller
 {
     return view('buku.index')->with('bukus', Buku::all());
 }
+
 public function detail($id_buku)
 {
     $buku = Buku::where('id_buku', $id_buku)->first();
@@ -40,17 +41,5 @@ public function store(Request $request)
     ]);
 
     Buku::create($request->all());
-    return redirect()->route('buku.create')->with('success', 'Buku berhasil ditambahkan.');
-}
-public function update($id_buku){
-    return view('Buku.update');
-}
-public function destroy($id_buku)
-    {
-        $buku = Buku::findOrFail($id_buku);
-        $buku->delete();
-
-        return redirect()->route('buku.index')->with('success', 'Buku berhasil dihapus.');
-    }
 
 }

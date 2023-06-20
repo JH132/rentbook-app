@@ -3,6 +3,7 @@
 <head>
     <title>Detail Buku</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
     <style>
         .modal {
             display: none;
@@ -38,11 +39,18 @@
             cursor: pointer;
         }
     </style>
+
 </head>
 <body>
     <div class="container">
         <h1>Detail Buku</h1>
         <div class="text-right">
+
+            <a href="#" class="btn btn-info">Edit</a>
+            <a href="{{ route('buku.index') }}" class="btn btn-secondary">Kembali</a>
+        </div>
+    <br>  
+
             <a href="{{ route('buku.update', ['id_buku' => $buku->id_buku]) }}" class="btn btn-info">Edit</a>
         </div>
         <br>  
@@ -87,6 +95,7 @@
             </tbody>
         </table>
         <div class="text-right">
+
         <form action="{{ route('buku.delete', $buku->id_buku) }}" method="POST" id="deleteForm">
             @csrf
             @method('DELETE')
