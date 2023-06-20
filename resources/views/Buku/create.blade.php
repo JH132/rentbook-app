@@ -3,16 +3,18 @@
   <head>
     <title>Create Buku</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    <style>
+      body {
+        margin: 20px;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
+        <a href="#">Home/</a>
+        <a href="{{ route('buku.index') }}">Buku</a>
       <h1>Create Buku</h1>
-      <div class="text-right">
-        <a href="{{ route('buku.index') }}" class="btn btn-secondary">Kembali</a>
-      </div>
-
-      <br/>
-
       <form method="POST" action="{{ route('buku.store') }}">
         @csrf
         <div class="form-group">
@@ -51,9 +53,31 @@
           <label for="isbn">ISBN:</label>
           <input type="text" class="form-control" id="isbn" name="isbn" required>
         </div>
-        <button type="submit" class="btn btn-primary" formaction="{{ route('buku.index') }}">Simpan</button>
+        <div class="text-right">
+          <a href="{{ route('buku.index') }}" class="btn btn-secondary" id="cancel-button">Batal</a>
+          <button type="submit" class="btn btn-primary" formaction="{{ route('buku.index') }}">Simpan</button>
+        </div>
       </form>
     </div>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      document.getElementById("cancel-button").addEventListener("click", function (event) {
+        event.preventDefault();
+        Swal.fire({
+          title: "Konfirmasi",
+          text: "Apakah anda yakin batal menambah buku?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Ya",
+          cancelButtonText: "Tidak",
+          icon: 'warning'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Handle cancellation logic here if confirmed
+            window.location.href = "{{ route('buku.index') }}";
+          }
+        });
+      });
+    </script>
   </body>
 </html>

@@ -4,6 +4,9 @@
     <title>Manajemen Buku</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
+        body{
+            margin: 20px
+        }
         /* Tambahkan gaya untuk garis */
         .table-striped tbody tr:nth-of-type(odd) {
             background-color: #f9f9f9;
@@ -19,6 +22,7 @@
 </head>
 <body>
     <div class="container">
+        <a href="{{ route('buku.index') }}">Home</a>
         <h1>Tabel Buku</h1>
 
         <br>
