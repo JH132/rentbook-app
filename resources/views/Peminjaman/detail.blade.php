@@ -8,7 +8,7 @@
     <div class="container">
         <h1>Detail Peminjaman</h1>
         <div class="text-right">
-            <a href="#" class="btn btn-info">Edit</a>
+            <a href="{{ route('peminjaman.edit', $peminjaman->id_peminjaman) }}" class="btn btn-info">Edit</a>
             <a href="{{ route('peminjaman.index') }}" class="btn btn-secondary">Kembali</a>
         </div>
         <br>
