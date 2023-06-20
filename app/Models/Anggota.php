@@ -9,11 +9,10 @@ class Anggota extends Model
 {
     use HasFactory;
     protected $table = 'anggota';
-    protected $primaryKey = 'ID_Anggota';
+    protected $primaryKey = 'id_anggota';
     public $timestamps = false;
 
     protected $fillable = ['Nama', 'Alamat', 'Email', 'Nomor_Telepon', 'Tanggal_Bergabung'];
-
 
     public function buku()
     {
@@ -24,7 +23,9 @@ class Anggota extends Model
     {
         return $this->belongsTo(Anggota::class, 'id_anggota');
     }
+
     public function peminjamans(){
     return $this->hasMany(Peminjaman::class, 'id_anggota');
     }
+
 }

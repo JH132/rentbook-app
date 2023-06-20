@@ -33,3 +33,4 @@ class AnggotaController extends Controller
         return redirect()->route('anggota.index')->with('success', 'Anggota berhasil ditambahkan');
     }
 }
+
