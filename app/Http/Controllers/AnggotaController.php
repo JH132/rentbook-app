@@ -2,30 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Anggota;
 use Illuminate\Http\Request;
 
 class AnggotaController extends Controller
 {
-    public function index() {
-        return view('anggota.index')->with('anggotas', Anggota::all());
+    public function index()
+    {
+        $anggotas = Anggota::all();
+        return view('anggota.index', compact('anggotas'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('anggota.create');
     }
 
-    public function store(Request $request) {
-    $this->validate($request, [
-        'id_anggota' => 'required',
-        'nama' => 'required',
-        'alamat' => 'required',
-        'email' => 'required',
-        'nomor_telepon' => 'required',
-        'tanggal_bergabung' => 'required',
-    ]);
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'alamat' => 'required',
+            'email' => 'required|email',
+            'nomor_telepon' => 'required',
+            'tanggal_bergabung' => 'required|date',
+        ]);
 
-    Anggota::create($request->all());
-    return redirect()->route('anggota.create')->with('success', 'Anggota berhasil ditambahkan.');
+        Anggota::create($validatedData);
+
+        return redirect()->route('anggota.index')->with('success', 'Anggota berhasil ditambahkan');
     }
-
 }
+

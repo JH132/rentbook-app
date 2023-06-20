@@ -50,7 +50,7 @@ public function destroy($id_buku)
         $buku = Buku::findOrFail($id_buku);
         $buku->delete();
 
-        return redirect()->route('buku.index')->with('success', 'Buku berhasil dihapus.');
+        return redirect()->route('buku.index')->with('succes', 'Buku berhasil dihapus.');
     }
 
 }

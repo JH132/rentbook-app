@@ -43,7 +43,7 @@
     <div class="container">
         <h1>Detail Buku</h1>
         <div class="text-right">
-            <a href="{{ route('buku.update', ['id_buku' => $buku->id_buku]) }}" class="btn btn-info">Edit</a>
+            <a href="{{ route('buku.edit', $buku->id_buku) }}" class="btn btn-info">Edit</a>
         </div>
         <br>  
         <table class="table">
@@ -87,12 +87,13 @@
             </tbody>
         </table>
         <div class="text-right">
-        <form action="{{ route('buku.delete', $buku->id_buku) }}" method="POST" id="deleteForm">
-            @csrf
-            @method('DELETE')
-            <button type="button" class="btn btn-danger" id="confirmDelete">Hapus</button>
-        </form>
-
+            <form  id="deleteForm" action="{{ route('buku.delete', $buku->id_buku) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
+            </form>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.all.min.js"></script>
         <script>
             document.getElementById('confirmDelete').addEventListener('click', function() {
                 var confirmDelete = confirm('Apakah Anda yakin ingin menghapus buku?');
@@ -100,6 +101,24 @@
                     document.getElementById('deleteForm').submit();
                 }
             });
+        </script>
+        <script>
+            // Fungsi untuk menampilkan pop-up konfirmasi menggunakan SweetAlert
+            function confirmDelete() {
+                Swal.fire({
+                    title: 'Konfirmasi',
+                    text: 'Apakah Anda yakin ingin menghapus data peminjaman?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Hapus',
+                    cancelButtonText: 'Batal',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById("deleteForm").submit();
+                    }
+                });
+            }
         </script>
         </div>
     </div>
