@@ -31,11 +31,6 @@ Route::put('/buku/{id_buku}', [BukuController::class, 'update'])->name('buku.upd
 
 
 
-
-
-
-
-
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::middleware(['auth'])->group(function () {
@@ -50,6 +45,8 @@ Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminja
 Route::post('/peminjaman/update-status', [PeminjamanController::class, 'updateStatus'])->name('peminjaman.updateStatus');
 Route::get('/peminjaman/{id_peminjaman}', [PeminjamanController::class, 'detail'])->name('peminjaman.detail');
 Route::delete('/peminjaman/{id_peminjaman}', [PeminjamanController::class, 'delete'])->name('peminjaman.delete');
+Route::get('/peminjaman/{id_peminjaman}/edit', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
+Route::put('/peminjaman/{id_peminjaman}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
 
 
 
@@ -63,4 +60,3 @@ Route::get('/dashboard', function () {
         return redirect('/');
     }
 });
-

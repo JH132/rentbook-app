@@ -107,7 +107,7 @@
             function confirmDelete() {
                 Swal.fire({
                     title: 'Konfirmasi',
-                    text: 'Apakah Anda yakin ingin menghapus data peminjaman?',
+                    text: 'Apakah Anda yakin ingin menghapus data buku?',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Hapus',
