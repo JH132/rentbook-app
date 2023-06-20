@@ -51,24 +51,58 @@
     .dashboard.light-bg .button-wrapper button {
       background-image: linear-gradient(to right, #764ba2, #667eea);
     }
+    
+    .logout-button {
+      font-size: 14px;
+      color: black;
+      border: none;
+      cursor: pointer;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    
+    .logout-button:hover {
+      text-decoration: none;
+      background: red;
+    }
   </style>
 </head>
 <body>
   <div class="dashboard">
     <div class="button-wrapper">
-    <img src="{{ asset('images/anggota.jpg') }}" alt="Anggota" width="80">
+      <img src="{{ asset('images/anggota.jpg') }}" alt="Anggota" width="80">
       <button class="btn btn-primary anggota" onclick="openAnggotaPage()">Anggota</button>
     </div>
     <div class="button-wrapper">
-    <img src="{{ asset('images/buku.jpg') }}" alt="Buku" width="80">
+      <img src="{{ asset('images/buku.jpg') }}" alt="Buku" width="80">
       <button class="btn btn-secondary buku" onclick="openBukuPage()">Buku</button>
     </div>
     <div class="button-wrapper">
-    <img src="{{ asset('images/peminjaman.jpg') }}" alt="Peminjaman" width="80">
+      <img src="{{ asset('images/peminjaman.jpg') }}" alt="Peminjaman" width="80">
       <button class="btn btn-success peminjaman" onclick="openPeminjamanPage()">Peminjaman</button>
     </div>
   </div>
   
+  <a href="{{ route('logout') }}" class="btn btn-danger">Logout</a>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script>
+
+    function openAnggotaPage() {
+      // Logika untuk membuka halaman anggota
+      // ...
+    }
+    
+    function openBukuPage() {
+      // Logika untuk membuka halaman buku
+      // ...
+    }
+    
+    function openPeminjamanPage() {
+      // Logika untuk membuka halaman peminjaman
+      // ...
+    }
+  </script>
 </body>
 </html>

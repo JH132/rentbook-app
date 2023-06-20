@@ -58,4 +58,33 @@ public function updateStatus(Request $request)
         return response()->json(['message' => 'Status updated successfully.']);
     }
 
+    public function edit($id_peminjaman)
+    {
+        $peminjaman = Peminjaman::findOrFail($id_peminjaman);
+        $anggotas = Anggota::all();
+        $bukus = Buku::all();
+        return view('peminjaman.edit', compact('peminjaman', 'anggotas', 'bukus'));
+    }
+
+    public function update(Request $request, $id_peminjaman)
+{
+    $peminjaman = Peminjaman::findOrFail($id_peminjaman);
+    
+    // Lakukan validasi data yang dikirimkan melalui $request jika diperlukan
+
+    // Update data buku
+    $peminjaman->id_anggota = $request->input('id_anggota');
+    $peminjaman->id_buku = $request->input('id_buku');
+    $peminjaman->tanggal_peminjaman = $request->input('tanggal_peminjaman');
+    $peminjaman->tanggal_pengembalian = $request->input('tanggal_pengembalian');
+    $peminjaman->status = $request->input('status');
+
+    // Update atribut lainnya
+
+    // Simpan perubahan
+    $peminjaman->save();
+
+    return redirect()->route('peminjaman.detail', ['id_peminjaman' => $peminjaman->id_peminjaman])->with('success', 'Data peminjaman berhasil diperbarui');
+}
+
 }

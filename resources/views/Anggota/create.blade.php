@@ -16,10 +16,6 @@
       <form method="POST" action="{{ route('anggota.store') }}">
         @csrf
         <div class="form-group">
-          <label for="id_angota">ID Anggota:</label>
-          <input type="text" class="form-control" id="id_anggota" name="id_anggota" required>
-        </div>
-        <div class="form-group">
           <label for="nama">Nama:</label>
           <input type="text" class="form-control" id="nama" name="nama" required>
         </div>
