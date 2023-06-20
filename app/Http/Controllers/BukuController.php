@@ -43,3 +43,43 @@ public function store(Request $request)
     Buku::create($request->all());
 
 }
+
+    public function destroy($id_buku)
+    {
+        $buku = Buku::findOrFail($id_buku);
+        $buku->delete();
+
+        return redirect()->route('buku.index')->with('success', 'Buku berhasil dihapus.');
+    }
+
+    public function edit($id_buku)
+{
+    $buku = Buku::findOrFail($id_buku);
+
+    return view('buku.edit', compact('buku'));
+}
+
+public function update(Request $request, $id_buku)
+{
+    $buku = Buku::findOrFail($id_buku);
+    
+    // Lakukan validasi data yang dikirimkan melalui $request jika diperlukan
+
+    // Update data buku
+    $buku->judul = $request->input('judul');
+    $buku->pengarang = $request->input('pengarang');
+    $buku->penerbit = $request->input('penerbit');
+    $buku->tahun_terbit = $request->input('tahun_terbit');
+    $buku->kategori = $request->input('kategori');
+    $buku->deskripsi = $request->input('deskripsi');
+    $buku->jumlah_salinan = $request->input('jumlah_salinan');
+    $buku->isbn = $request->input('isbn');
+    // Update atribut lainnya
+
+    // Simpan perubahan
+    $buku->save();
+
+    return redirect()->route('buku.detail', ['id_buku' => $buku->id_buku])->with('success', 'Data buku berhasil diperbarui');
+}
+
+}
