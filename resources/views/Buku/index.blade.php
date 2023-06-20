@@ -29,6 +29,7 @@
                 <form action="{{ route('buku.index') }}" method="GET">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Cari buku..." name="search" value="{{ request()->input('search') }}">
+                        <input type="hidden" name="filter" value="{{ request()->input('filter') }}">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="submit">Cari</button>
                         </div>
@@ -56,17 +57,21 @@
             </thead>
             <tbody>
                 @foreach($bukus as $buku)
-                    <tr>
-                        <td class="text-center">{{ $buku->id_buku}}</td>
-                        <td class="text-center">{{ $buku->judul }}</td>
-                        <td class="text-center">{{ $buku->kategori }}</td>
-                        <td class="text-center">{{ $buku->jumlah_salinan }}</td>
-                        <td>
-                            <div class="d-flex justify-content-center">
-                            <a href="{{ route('buku.detail', ['id_buku' => $buku->id_buku]) }}" class="btn btn-info">Detail</a>
-                            </div>
-                        </td>
-                    </tr>
+                    @if (strpos(strtolower($buku->id_buku), strtolower(request()->input('search'))) !== false
+                        || strpos(strtolower($buku->judul), strtolower(request()->input('search'))) !== false
+                        || strpos(strtolower($buku->kategori), strtolower(request()->input('search'))) !== false)
+                        <tr>
+                            <td class="text-center">{{ $buku->id_buku }}</td>
+                            <td class="text-center">{{ $buku->judul }}</td>
+                            <td class="text-center">{{ $buku->kategori }}</td>
+                            <td class="text-center">{{ $buku->jumlah_salinan }}</td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <a href="{{ route('buku.detail', ['id_buku' => $buku->id_buku]) }}" class="btn btn-info">Detail</a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
