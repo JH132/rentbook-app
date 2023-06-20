@@ -63,7 +63,7 @@ public function store(Request $request)
         $buku = Buku::findOrFail($id_buku);
         $buku->delete();
 
-        return redirect()->route('buku.index')->with('success', 'Buku berhasil dihapus.');
+        return redirect()->route('buku.index')->with('success', 'Buku. berhasil dihapus.');
     }
 
     public function edit($id_buku)
