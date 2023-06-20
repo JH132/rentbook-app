@@ -7,9 +7,14 @@
 <body>
     <div class="container">
         <h1>Detail Peminjaman</h1>
-        <div class="text-right">
+        <div class="d-flex justify-content-end">
             <a href="#" class="btn btn-info">Edit</a>
-            <a href="{{ route('peminjaman.index') }}" class="btn btn-secondary">Kembali</a>
+            <form  id="deleteForm" action="{{ route('peminjaman.delete', $peminjaman->id_peminjaman) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
+            </form>
+        </div>
         </div>
         <br>
         <table class="table">
@@ -48,13 +53,6 @@
                 </tr>
             </tbody>
         </table>
-        <div class="text-right">
-            <form  id="deleteForm" action="{{ route('peminjaman.delete', $peminjaman->id_peminjaman) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
-            </form>
-        </div>
     </div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <!-- Tambahkan SweetAlert CSS dan JavaScript -->

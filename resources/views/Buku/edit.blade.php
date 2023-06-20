@@ -3,13 +3,18 @@
   <head>
     <title>Edit Buku</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      body {
+        margin: 20px;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
+        <a href="#">Home/</a>
+        <a href="{{ route('buku.index') }}">Buku</a>
       <h1>Edit Buku</h1>
-      <div class="text-right">
-        <a href="{{ route('buku.detail', ['id_buku' => $buku->id_buku]) }}" class="btn btn-secondary">Kembali</a>
-    </div>
 
       <br/>
 
@@ -48,7 +53,28 @@
           <label for="isbn">ISBN:</label>
           <input type="text" class="form-control" id="isbn" name="isbn" value="{{ $buku->isbn }}" required>
         </div>
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <div class="text-right">
+          <a href="{{ route('buku.detail', ['id_buku' => $buku->id_buku]) }}" class="btn btn-secondary">Batal</a>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+        <script>
+          document.querySelector('.btn-secondary').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the form submission
+
+            Swal.fire({
+              title: 'Konfirmasi',
+              text: 'Apakah Anda yakin batal mengubah buku?',
+              showCancelButton: true,
+              confirmButtonText: 'Ya',
+              cancelButtonText: 'Tidak',
+              icon: 'warning'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = "{{ route('buku.index', ['id_buku' => $buku->id_buku]) }}";
+              }
+            });
+          });
+        </script>
       </form>
     </div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
