@@ -3,16 +3,18 @@
   <head>
     <title>Edit Anggota</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+      body {
+        margin: 20px;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
+        <a href="#">Home/</a>
+        <a href="{{ route('anggota.index') }}">Anggota</a>
       <h1>Edit Anggota</h1>
-      <div class="text-right">
-        <a href="{{ route('anggota.detail', ['id_anggota' => $anggota->id_anggota]) }}" class="btn btn-secondary">Kembali</a>
-      </div>
-
       <br/>
-
       <form method="POST" action="{{ route('anggota.update', $anggota->id_anggota) }}">
         @csrf
         @method('PUT')
@@ -36,9 +38,31 @@
           <label for="tanggal_bergabung">Tanggal Bergabung:</label>
           <input type="date" class="form-control" id="tanggal_bergabung" name="tanggal_bergabung" value="{{ $anggota->tanggal_bergabung }}" required>
         </div>
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <div class="text-right">
+          <a href="{{ route('anggota.detail', ['id_anggota' => $anggota->id_anggota]) }}" class="btn btn-secondary">Batal</a>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+        <script>
+          document.querySelector('.btn-secondary').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the form submission
+
+            Swal.fire({
+              title: 'Konfirmasi',
+              text: 'Apakah Anda yakin batal mengubah anggota?',
+              showCancelButton: true,
+              confirmButtonText: 'Ya',
+              cancelButtonText: 'Tidak',
+              icon: 'warning'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = "{{ route('anggota.batal', ['id_anggota' => $anggota->id_anggota]) }}";
+              }
+            });
+          });
+        </script>
       </form>
     </div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   </body>
 </html>
+

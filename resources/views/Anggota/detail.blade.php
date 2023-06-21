@@ -4,6 +4,9 @@
     <title>Detail Anggota</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
+        body{
+            margin: 20px
+        }
         .modal {
             display: none;
             position: fixed;
@@ -41,9 +44,18 @@
 </head>
 <body>
     <div class="container">
+        <a href="#">Home/</a>
+        <a href="{{ route('anggota.index') }}">Anggota</a>
         <h1>Detail Anggota</h1>
         <div class="text-right">
-            <a href="{{ route('anggota.edit', $anggota->id_anggota) }}" class="btn btn-info">Edit</a>
+            <div class="d-flex justify-content-end">
+                <a href="{{ route('anggota.edit', $anggota->id_anggota) }}" class="btn btn-info mr-2">Edit</a>
+                <form  id="deleteForm" action="{{ route('anggota.delete', $anggota->id_anggota) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
+            </form>
+            </div>
         </div>
         <br>  
         <table class="table">
@@ -74,12 +86,7 @@
                 </tr>
             </tbody>
         </table>
-        <div class="text-right">
-            <form  id="deleteForm" action="{{ route('anggota.delete', $anggota->id_anggota) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
-            </form>
+    
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.all.min.js"></script>
         <script>
@@ -108,7 +115,6 @@
                 });
             }
         </script>
-        </div>
     </div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>

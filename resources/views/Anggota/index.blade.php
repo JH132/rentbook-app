@@ -4,6 +4,9 @@
     <title>Manajemen Anggota</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
+        body{
+            margin: 20px
+        }
         /* Tambahkan gaya untuk garis */
         .table-striped tbody tr:nth-of-type(odd) {
             background-color: #f9f9f9;
@@ -20,10 +23,9 @@
 </head>
 <body>
     <div class="container">
+        <a href="{{ route('anggota.index') }}">Home</a>
         <h1>Tabel Anggota</h1>
-
         <br>
-
         <div class="row">
             <div class="col-md-6">
                 <!-- Tambahkan search bar di sini -->

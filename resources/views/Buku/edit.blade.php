@@ -15,9 +15,7 @@
         <a href="#">Home/</a>
         <a href="{{ route('buku.index') }}">Buku</a>
       <h1>Edit Buku</h1>
-
       <br/>
-
       <form method="POST" action="{{ route('buku.update', $buku->id_buku) }}">
         @csrf
         @method('PUT')
@@ -70,7 +68,7 @@
               icon: 'warning'
             }).then((result) => {
               if (result.isConfirmed) {
-                window.location.href = "{{ route('buku.index', ['id_buku' => $buku->id_buku]) }}";
+                window.location.href = "{{ route('buku.detail', ['id_buku' => $buku->id_buku]) }}";
               }
             });
           });
