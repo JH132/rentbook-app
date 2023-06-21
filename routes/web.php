@@ -10,12 +10,13 @@
 |
 */
 
-use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\AnggotaController;
+use Illuminate\Support\Facades\Route;
 
 
 
@@ -42,21 +43,15 @@ Route::get('/anggota/{id_anggota}/edit', [AnggotaController::class, 'edit'])->na
 Route::put('/anggota/{id_anggota}', [AnggotaController::class, 'update'])->name('anggota.update');
 
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('admin');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
-
-// Route::group(['middleware' => 'admin'], function () {
-//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('admin');
-// });
-
-
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-// });
+Route::controller(AuthController::class)->group(function () {
+    Route::get('register', 'register')->name('register');
+    Route::post('register', 'registerSave')->name('register.save');
+  
+    Route::get('login', 'login')->name('login');
+    Route::post('login', 'loginAction')->name('login.action');
+  
+    Route::get('logout', 'logout')->middleware('auth')->name('logout');
+});
 
 
 
