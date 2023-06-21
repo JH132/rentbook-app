@@ -44,8 +44,9 @@
 </head>
 <body>
     <div class="container">
-        <a href="#">Home/</a>
-        <a href="{{ route('anggota.index') }}">Anggota</a>
+        <a href="{{ route('dashboard') }}">Dashboard/</a>
+        <a href="{{ route('anggota.index') }}">Anggota/</a>
+        <a href="">{{ $anggota->nama }}</a>
         <h1>Detail Anggota</h1>
         <div class="text-right">
             <div class="d-flex justify-content-end">

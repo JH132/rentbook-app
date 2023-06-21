@@ -13,7 +13,6 @@ class PeminjamanController extends Controller
 {
     $search = $request->input('search');
     $peminjamans = Peminjaman::all();
-
     return view('peminjaman.index', compact('peminjamans', 'search'));
 }
 

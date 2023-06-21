@@ -3,6 +3,7 @@
   <head>
     <title>Edit Anggota</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
       body {
         margin: 20px;
@@ -11,8 +12,10 @@
   </head>
   <body>
     <div class="container">
-        <a href="#">Home/</a>
-        <a href="{{ route('anggota.index') }}">Anggota</a>
+      <a href="{{ route('dashboard') }}">Dashboard/</a>
+      <a href="{{ route('anggota.index') }}">Anggota/</a>
+      <a href="{{ route('anggota.detail', ['id_anggota' => $anggota->id_anggota]) }}">{{ $anggota->nama }}/</a>
+      <a href="">Edit</a>
       <h1>Edit Anggota</h1>
       <br/>
       <form method="POST" action="{{ route('anggota.update', $anggota->id_anggota) }}">
@@ -55,7 +58,7 @@
               icon: 'warning'
             }).then((result) => {
               if (result.isConfirmed) {
-                window.location.href = "{{ route('anggota.batal', ['id_anggota' => $anggota->id_anggota]) }}";
+                window.location.href = "{{ route('anggota.detail', ['id_anggota' => $anggota->id_anggota]) }}";
               }
             });
           });

@@ -44,20 +44,9 @@
 </head>
 <body>
     <div class="container">
-        <a href="{{ route('dashboard') }}">Dashboard/</a>
-        <a href="{{ route('buku.index') }}">Buku/</a>
+        <a href="{{ route('home.index') }}">Home/</a>
         <a href="">{{ $buku->judul }}</a>
         <h1>Detail Buku</h1>
-        <div class="text-right">
-            <div class="d-flex justify-content-end">
-                <a href="{{ route('buku.edit', $buku->id_buku) }}" class="btn btn-info mr-2">Edit</a>
-                <form id="deleteForm" action="{{ route('buku.delete', $buku->id_buku) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
-                </form>
-            </div>
-        </div>
         <br>  
         <table class="table">
             <tbody>
@@ -90,8 +79,8 @@
                     <td>{{ $buku->deskripsi }}</td>
                 </tr>
                 <tr>
-                    <th>Jumlah Salinan</th>
-                    <td>{{ $buku->jumlah_salinan }}</td>
+                    <th>Jumlah Tersedia</th>
+                    <td>{{ $buku->jumlah_tersedia }}</td>
                 </tr>
                 <tr>
                     <th>ISBN</th>
@@ -99,27 +88,6 @@
                 </tr>
             </tbody>
         </table>
-        
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.6/dist/sweetalert2.all.min.js"></script>
-        <script>
-            // Fungsi untuk menampilkan pop-up konfirmasi menggunakan SweetAlert
-            function confirmDelete() {
-                Swal.fire({
-                    title: 'Konfirmasi',
-                    text: 'Apakah Anda yakin ingin menghapus data buku?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Hapus',
-                    cancelButtonText: 'Batal',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.getElementById("deleteForm").submit();
-                    }
-                });
-            }
-        </script>
     </div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
