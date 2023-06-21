@@ -53,6 +53,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('logout', 'logout')->middleware('auth')->name('logout');
 });
 
+Route::middleware('auth')->group (function (){
+    Route::get('dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
+
 
 
 Route::get('/peminjaman/create', [PeminjamanController::class, 'create'])->name('peminjaman.create');
@@ -65,15 +71,4 @@ Route::get('/peminjaman/{id_peminjaman}/edit', [PeminjamanController::class, 'ed
 Route::put('/peminjaman/{id_peminjaman}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
 
 
-
-
-
-// Route::get('/dashboard', function () {
-//     // Periksa apakah pengguna sudah login
-//     if (session()->has('username')) {
-//         return view('dashboard');
-//     } else {
-//         return redirect('login');
-//     }
-// });
 

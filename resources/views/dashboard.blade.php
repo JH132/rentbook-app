@@ -64,7 +64,7 @@
     }
     
     .logout-button:hover {
-      text-decoration: underline;
+      text-decoration: none;
       background: red;
     }
   </style>
