@@ -72,16 +72,11 @@ Route::put('/peminjaman/{id_peminjaman}', [PeminjamanController::class, 'update'
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/home/{id_buku}', [HomeController::class, 'detail'])->name('home.detail');
 
+Route::middleware('auth')->group (function (){
+    Route::get('dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
 
 
-
-
-// Route::get('/dashboard', function () {
-//     // Periksa apakah pengguna sudah login
-//     if (session()->has('username')) {
-//         return view('dashboard');
-//     } else {
-//         return redirect('login');
-//     }
-// });
 
