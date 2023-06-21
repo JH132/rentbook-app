@@ -14,32 +14,14 @@ class AuthController extends Controller
         return view('login');
     }
 
-    // public function login(Request $request)
-    // {
-    //     $credentials = $request->only('username', 'password');
-    //     if ($credentials['username'] === 'magenta' && $credentials['password'] === 'rahasia') {
-    //         return redirect()->route('dashboard');
-    //     } else {
-    //         return redirect()->back()->withErrors('Username atau password salah.');}
-    //     }
-    
     public function login(Request $request)
     {
         $credentials = $request->only('username', 'password');
-    
-        // Daftar username admin yang valid
-        $adminUsernames = ['shania', 'fathia', 'magenta', 'ruri'];
-    
-        if (in_array($credentials['username'], $adminUsernames) && $credentials['password'] === 'rahasia') {
-            // Pengguna adalah admin, simpan status login sebagai admin
-            session(['admin' => true]);
-    
-            // Redirect ke halaman dashboard setelah login berhasil
+        if ($credentials['username'] === 'magenta' && $credentials['password'] === 'rahasia') {
             return redirect()->route('dashboard');
         } else {
-            return redirect()->back()->withErrors('Username atau password salah.');
+            return redirect()->back()->withErrors('Username atau password salah.');}
         }
-    }
     
 
         public function logout()

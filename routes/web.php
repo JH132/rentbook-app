@@ -44,14 +44,14 @@ Route::put('/anggota/{id_anggota}', [AnggotaController::class, 'update'])->name(
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('admin');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-Route::group(['middleware' => 'admin'], function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('admin');
-});
+// Route::group(['middleware' => 'admin'], function () {
+//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('admin');
+// });
 
 
 // Route::middleware(['auth'])->group(function () {
