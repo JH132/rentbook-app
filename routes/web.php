@@ -80,12 +80,3 @@ Route::middleware('auth')->group (function (){
 
 
 
-// Route::get('/dashboard', function () {
-//     // Periksa apakah pengguna sudah login
-//     if (session()->has('username')) {
-//         return view('dashboard');
-//     } else {
-//         return redirect('login');
-//     }
-// });
-
