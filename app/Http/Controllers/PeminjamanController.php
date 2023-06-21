@@ -9,9 +9,14 @@ use App\Models\Buku;
 
 class PeminjamanController extends Controller
 {
-    public function index(){
-        return view('peminjaman.index')->with('peminjamans', Peminjaman::all());
-    }
+    public function index(Request $request)
+{
+    $search = $request->input('search');
+    $peminjamans = Peminjaman::all();
+
+    return view('peminjaman.index', compact('peminjamans', 'search'));
+}
+
 
     public function create()
     {

@@ -4,6 +4,9 @@
     <title>Manajemen Peminjaman</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
+        body{
+            margin: 20px
+        }
         /* Tambahkan gaya untuk garis */
         .table-striped tbody tr:nth-of-type(odd) {
             background-color: #f9f9f9;
@@ -19,13 +22,11 @@
 </head>
 <body>
     <div class="container">
+        <a href="{{ route('peminjaman.index') }}">Home</a>
         <h1>Tabel Peminjaman</h1>
-
         <br>
-
         <div class="row">
             <div class="col-md-6">
-                <!-- Tambahkan search bar di sini -->
                 <form action="{{ route('peminjaman.index') }}" method="GET">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Cari peminjaman..." name="search" value="{{ request()->input('search') }}">
@@ -57,25 +58,32 @@
             </thead>
             <tbody>
                 @foreach($peminjamans as $peminjaman)
-                    <tr>
-                        <td class="text-center">{{ $peminjaman->id_peminjaman }}</td>
-                        <td class="text-center">{{ $peminjaman->buku->judul }}</td>
-                        <td class="text-center">{{ $peminjaman->anggota->nama }}</td>
-                        <td class="text-center">{{ $peminjaman->tanggal_pengembalian }}</td>
-                        <td class="text-center">
-                            <select class="form-control status-select" data-id="{{ $peminjaman->id_peminjaman }}">
-                                <option value="Dipinjam" {{ $peminjaman->status == 'Dipinjam' ? 'selected' : '' }}>Dipinjam</option>
-                                <option value="Tepat Waktu" {{ $peminjaman->status == 'Tepat Waktu' ? 'selected' : '' }}>Tepat Waktu</option>
-                                <option value="Terlambat" {{ $peminjaman->status == 'Terlambat' ? 'selected' : '' }}>Terlambat</option>
-                            </select>
-                        </td>
-                        <td>
-                            <div class="d-flex justify-content-center">
-                                <a href="{{ route('peminjaman.detail', ['id_peminjaman' => $peminjaman->id_peminjaman]) }}" class="btn btn-info">Detail</a>
-                            </div>
-                        </td>
-                    </tr>
+                    @if (strpos($peminjaman->id_peminjaman, $search) !== false || 
+                        strpos($peminjaman->buku->judul, $search) !== false || 
+                        strpos($peminjaman->anggota->nama, $search) !== false || 
+                        strpos($peminjaman->tanggal_pengembalian, $search) !== false || 
+                        strpos($peminjaman->status, $search) !== false)
+                        <tr>
+                            <td class="text-center">{{ $peminjaman->id_peminjaman }}</td>
+                            <td class="text-center">{{ $peminjaman->buku->judul }}</td>
+                            <td class="text-center">{{ $peminjaman->anggota->nama }}</td>
+                            <td class="text-center">{{ $peminjaman->tanggal_pengembalian }}</td>
+                            <td class="text-center">
+                                <select class="form-control status-select" data-id="{{ $peminjaman->id_peminjaman }}">
+                                    <option value="Dipinjam" {{ $peminjaman->status == 'Dipinjam' ? 'selected' : '' }}>Dipinjam</option>
+                                    <option value="Tepat Waktu" {{ $peminjaman->status == 'Tepat Waktu' ? 'selected' : '' }}>Tepat Waktu</option>
+                                    <option value="Terlambat" {{ $peminjaman->status == 'Terlambat' ? 'selected' : '' }}>Terlambat</option>
+                                </select>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <a href="{{ route('peminjaman.detail', ['id_peminjaman' => $peminjaman->id_peminjaman]) }}" class="btn btn-info">Detail</a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
+
             </tbody>
         </table>
     </div>

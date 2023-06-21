@@ -3,16 +3,17 @@
   <head>
     <title>Tambah Anggota</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+      body {
+        margin: 20px;
+      }
+    </style
   </head>
   <body>
     <div class="container">
+        <a href="#">Home/</a>
+        <a href="{{ route('anggota.index') }}">Anggota</a>
       <h1>Tambah Anggota</h1>
-      <div class="text-right">
-        <a href="{{ route('anggota.index') }}" class="btn btn-secondary">Kembali</a>
-      </div>
-
-      <br/>
-
       <form method="POST" action="{{ route('anggota.store') }}">
         @csrf
         <div class="form-group">
@@ -35,9 +36,32 @@
           <label for="tanggal_bergabung">Tanggal Bergabung:</label>
           <input type="date" class="form-control" id="tanggal_bergabung" name="tanggal_bergabung" required>
         </div>
-        <button type="submit" class="btn btn-primary" formaction="{{ route('anggota.index') }}">Simpan</button>
+          <div class="text-right">
+          <a href="{{ route('anggota.index') }}" class="btn btn-secondary" id="cancel-button">Batal</a>
+          <button type="submit" class="btn btn-primary" formaction="{{ route('anggota.index') }}">Simpan</button>
+        </div>
       </form>
     </div>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      document.getElementById("cancel-button").addEventListener("click", function (event) {
+        event.preventDefault();
+        Swal.fire({
+          title: "Konfirmasi",
+          text: "Apakah anda yakin batal menambah anggota?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Ya",
+          cancelButtonText: "Tidak",
+          icon: 'warning'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Handle cancellation logic here if confirmed
+            window.location.href = "{{ route('anggota.index') }}";
+          }
+        });
+      });
+    </script>
   </body>
 </html>
+

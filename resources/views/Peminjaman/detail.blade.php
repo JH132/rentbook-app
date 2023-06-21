@@ -3,13 +3,59 @@
 <head>
     <title>Detail Peminjaman</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body{
+            margin: 20px
+        }
+        .modal {
+            display: none;
+            position: fixed;  
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
+        <a href="#">Home/</a>
+        <a href="{{ route('peminjaman.index') }}">Peminjaman</a>
         <h1>Detail Peminjaman</h1>
         <div class="text-right">
-            <a href="{{ route('peminjaman.edit', $peminjaman->id_peminjaman) }}" class="btn btn-info">Edit</a>
-            <a href="{{ route('peminjaman.index') }}" class="btn btn-secondary">Kembali</a>
+            <div class="d-flex justify-content-end">
+                <a href="{{ route('peminjaman.edit', $peminjaman->id_peminjaman) }}" class="btn btn-info mr-2">Edit</a>
+                <form id="deleteForm" action="{{ route('peminjaman.delete', $peminjaman->id_peminjaman) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
+                </form>
+            </div>
         </div>
         <br>
         <table class="table">

@@ -4,14 +4,18 @@
     <title>Edit Peminjaman</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      body {
+        margin: 20px;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
+      <a href="#">Home/</a>
+      <a href="{{ route('peminjaman.index') }}">Peminjaman</a>
       <h1>Edit Peminjaman</h1>
-      <div class="text-right">
-        <a href="{{ route('peminjaman.detail', ['id_peminjaman' => $peminjaman->id_peminjaman]) }}" class="btn btn-secondary">Kembali</a>
-      </div>
-
       <br/>
 
       <form method="POST" action="{{ route('peminjaman.update', $peminjaman->id_peminjaman) }}">
@@ -49,7 +53,10 @@
             <option value="Terlambat" @if($peminjaman->status == 'Terlambat') selected @endif>Terlambat</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <div class="text-right">
+          <a href="{{ route('peminjaman.detail', ['id_peminjaman' => $peminjaman->id_peminjaman]) }}" class="btn btn-secondary" id="cancelBtn">Batal</a>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
       </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -58,6 +65,23 @@
     <script>
       $(document).ready(function() {
         $('.select2').select2();
+      });
+
+      document.getElementById('cancelBtn').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the link's default action
+
+        Swal.fire({
+          title: 'Konfirmasi',
+          text: 'Apakah Anda yakin batal mengubah buku?',
+          showCancelButton: true,
+          confirmButtonText: 'Ya',
+          cancelButtonText: 'Tidak',
+          icon: 'warning'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "{{ route('peminjaman.detail', ['id_peminjaman' => $peminjaman->id_peminjaman]) }}";
+          }
+        });
       });
     </script>
   </body>
