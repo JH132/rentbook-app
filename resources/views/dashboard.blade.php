@@ -11,6 +11,7 @@
       align-items: center;
       height: 100vh;
       background-color: #f8f9fa; /* Warna latar belakang */
+      position: relative; /* Menjadikan posisi tombol logout relatif terhadap body */
     }
     
     .dashboard {
@@ -63,7 +64,7 @@
     }
     
     .logout-button:hover {
-      text-decoration: none;
+      text-decoration: underline;
       background: red;
     }
   </style>
@@ -82,26 +83,22 @@
       <img src="{{ asset('images/peminjaman.jpg') }}" alt="Peminjaman" width="80">
       <button class="btn btn-success peminjaman" onclick="openPeminjamanPage()">Peminjaman</button>
     </div>
+    
+    <a href="{{ route('logout') }}" class="btn btn-danger logout-button">Logout</a>
   </div>
-  
-  <a href="{{ route('logout') }}" class="btn btn-danger">Logout</a>
   
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script>
-
     function openAnggotaPage() {
-      // Logika untuk membuka halaman anggota
-      // ...
+      window.location.href = "anggota";
     }
     
     function openBukuPage() {
-      // Logika untuk membuka halaman buku
-      // ...
+      window.location.href = "buku";
     }
     
     function openPeminjamanPage() {
-      // Logika untuk membuka halaman peminjaman
-      // ...
+      window.location.href = "peminjaman";
     }
   </script>
 </body>
