@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Buku extends Model
 {
-    
     use HasFactory;
+
 
     protected $table = 'buku';
     protected $primaryKey = 'id_buku';
@@ -28,6 +28,5 @@ class Buku extends Model
     private $deskripsi;
     private $jumlah_salinan;
     private $isbn;
-
 
 }
