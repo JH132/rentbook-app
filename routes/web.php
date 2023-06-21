@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BukuController;
-
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\AnggotaController;
 
