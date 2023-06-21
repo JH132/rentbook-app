@@ -16,7 +16,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\AnggotaController;
-
+use App\Http\Controllers\HomeController;
 
 
 Route::get('/', function () {
@@ -59,7 +59,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // });
 
 
-
+//rute peminjaman
 Route::get('/peminjaman/create', [PeminjamanController::class, 'create'])->name('peminjaman.create');
 Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('peminjaman.store');
 Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
@@ -68,6 +68,10 @@ Route::get('/peminjaman/{id_peminjaman}', [PeminjamanController::class, 'detail'
 Route::delete('/peminjaman/{id_peminjaman}', [PeminjamanController::class, 'delete'])->name('peminjaman.delete');
 Route::get('/peminjaman/{id_peminjaman}/edit', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
 Route::put('/peminjaman/{id_peminjaman}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
+
+//rute home
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::get('/home/{id_buku}', [HomeController::class, 'detail'])->name('home.detail');
 
 
 
