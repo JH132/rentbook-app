@@ -21,7 +21,6 @@ class BukuController extends Controller
         }
     
         $bukus = $bukus->get();
-        $bukus = Buku::paginate(10);
     
         return view('buku.index', compact('bukus'));
     }

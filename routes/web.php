@@ -24,9 +24,14 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::get('/', function () {
+//     return view('Home.index');
+// });
+Route::get('/', [HomeController::class, 'index']);
 
 //rute buku
 Route::get('/buku/create', [BukuController::class, 'create'])->name('buku.create');
