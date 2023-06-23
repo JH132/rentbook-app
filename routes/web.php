@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('Home.index');
 // });
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 //rute buku
 Route::get('/buku/create', [BukuController::class, 'create'])->name('buku.create');
@@ -53,8 +53,8 @@ Route::put('/anggota/{id_anggota}', [AnggotaController::class, 'update'])->name(
 
 
 Route::controller(AuthController::class)->group(function () {
-    Route::get('register', 'register')->name('register');
-    Route::post('register', 'registerSave')->name('register.save');
+    // Route::get('register', 'register')->name('register');
+    // Route::post('register', 'registerSave')->name('register.save');
   
     Route::get('login', 'login')->name('login');
     Route::post('login', 'loginAction')->name('login.action');
