@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Buku extends Model
 {
-    
     use HasFactory;
+
 
     protected $table = 'buku';
     protected $primaryKey = 'id_buku';
 
     protected $fillable = ['id_buku', 'judul', 'pengarang', 'penerbit', 'tahun_terbit', 'kategori', 'deskripsi', 'jumlah_salinan', 'isbn'];
 
-    public function peminjamans()
+    public function peminjaman()
 {
     return $this->hasMany(Peminjaman::class, 'id_buku');
 }
@@ -28,6 +28,5 @@ class Buku extends Model
     private $deskripsi;
     private $jumlah_salinan;
     private $isbn;
-
 
 }

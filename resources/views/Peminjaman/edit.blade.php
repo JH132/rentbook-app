@@ -13,8 +13,10 @@
   </head>
   <body>
     <div class="container">
-      <a href="#">Home/</a>
-      <a href="{{ route('peminjaman.index') }}">Peminjaman</a>
+      <a href="{{ route('dashboard') }}">Dashboard/</a>
+      <a href="{{ route('peminjaman.index') }}">Peminjaman/</a>
+      <a href={{ route('peminjaman.detail', ['id_peminjaman' => $peminjaman->id_peminjaman]) }}>{{ $peminjaman->id_peminjaman }}/</a>
+      <a href="">Edit</a>
       <h1>Edit Peminjaman</h1>
       <br/>
 

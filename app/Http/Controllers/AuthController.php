@@ -1,51 +1,78 @@
 <?php
-
+  
 namespace App\Http\Controllers;
-
+  
 use Illuminate\Http\Request;
-
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
+  
 class AuthController extends Controller
 {
+    public function register()
+    {
+        return view('auth/register');
+    }
+
     public function showLoginForm()
     {
-        return view('login');
+        return view('auth/login');
     }
-
-    // public function login(Request $request)
-    // {
-    //     $credentials = $request->only('username', 'password');
-    //     if ($credentials['username'] === 'magenta' && $credentials['password'] === 'rahasia') {
-    //         return redirect()->route('dashboard');
-    //     } else {
-    //         return redirect()->back()->withErrors('Username atau password salah.');}
-    //     }
-    
-    public function login(Request $request)
+  
+    public function registerSave(Request $request)
     {
-        $credentials = $request->only('username', 'password');
-    
-        // Daftar username admin yang valid
-        $adminUsernames = ['shania', 'fathia', 'magenta', 'ruri'];
-    
-        if (in_array($credentials['username'], $adminUsernames) && $credentials['password'] === 'rahasia') {
-            // Pengguna adalah admin, simpan status login sebagai admin
-            session(['admin' => true]);
-    
-            // Redirect ke halaman dashboard setelah login berhasil
-            return redirect()->route('dashboard');
-        } else {
-            return redirect()->back()->withErrors('Username atau password salah.');
-        }
+        Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed'
+        ])->validate();
+  
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'level' => 'Admin'
+        ]);
+  
+        return redirect()->route('login');
     }
-    
-
-        public function logout()
-        {
-            Auth::logout();
-            return redirect()->route('login');
+  
+    public function login()
+    {
+        return view('auth/login');
+    }
+  
+    public function loginAction(Request $request)
+    {
+        Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required'
+        ])->validate();
+  
+        if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+            throw ValidationException::withMessages([
+                'email' => trans('auth.failed')
+            ]);
         }
-        
+  
+        $request->session()->regenerate();
+  
+        return redirect()->route('dashboard');
+    }
+  
+    public function logout(Request $request)
+    {
+        Auth::guard('web')->logout();
+  
+        $request->session()->invalidate();
+  
+        return redirect('/');
+    }
+ 
+    public function profile()
+    {
+        return view('profile');
+    }
 }

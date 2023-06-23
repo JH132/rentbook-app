@@ -10,19 +10,28 @@
 |
 */
 
-use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BukuController;
-
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\AnggotaController;
 
+use App\Http\Controllers\HomeController;
+
+use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::get('/', function () {
+//     return view('Home.index');
+// });
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 //rute buku
 Route::get('/buku/create', [BukuController::class, 'create'])->name('buku.create');
@@ -43,24 +52,18 @@ Route::get('/anggota/{id_anggota}/edit', [AnggotaController::class, 'edit'])->na
 Route::put('/anggota/{id_anggota}', [AnggotaController::class, 'update'])->name('anggota.update');
 
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('admin');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
-
-Route::group(['middleware' => 'admin'], function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('admin');
+Route::controller(AuthController::class)->group(function () {
+    // Route::get('register', 'register')->name('register');
+    // Route::post('register', 'registerSave')->name('register.save');
+  
+    Route::get('login', 'login')->name('login');
+    Route::post('login', 'loginAction')->name('login.action');
+  
+    Route::get('logout', 'logout')->middleware('auth')->name('logout');
 });
 
 
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-// });
-
-
-
+//rute peminjaman
 Route::get('/peminjaman/create', [PeminjamanController::class, 'create'])->name('peminjaman.create');
 Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('peminjaman.store');
 Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
@@ -70,16 +73,15 @@ Route::delete('/peminjaman/{id_peminjaman}', [PeminjamanController::class, 'dele
 Route::get('/peminjaman/{id_peminjaman}/edit', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
 Route::put('/peminjaman/{id_peminjaman}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
 
+//rute home
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::get('/home/{id_buku}', [HomeController::class, 'detail'])->name('home.detail');
+
+Route::middleware('auth')->group (function (){
+    Route::get('dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
 
 
-
-
-// Route::get('/dashboard', function () {
-//     // Periksa apakah pengguna sudah login
-//     if (session()->has('username')) {
-//         return view('dashboard');
-//     } else {
-//         return redirect('login');
-//     }
-// });
 

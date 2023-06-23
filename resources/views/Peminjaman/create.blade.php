@@ -12,8 +12,9 @@
   </head>
   <body>
     <div class="container">
-      <a href="#">Home/</a>
-      <a href="{{ route('peminjaman.index') }}">Peminjaman</a>
+      <a href="{{ route('dashboard') }}">Dashboard/</a>
+      <a href="{{ route('peminjaman.index') }}">Peminjaman/</a>
+      <a href="">Tambah</a>
       <h1>Create Peminjaman</h1>
       <form method="POST" action="{{ route('peminjaman.store') }}">
         @csrf
