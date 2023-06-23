@@ -55,7 +55,7 @@
               icon: 'warning'
             }).then((result) => {
               if (result.isConfirmed) {
-                window.location.href = "{{ route('anggota.batal', ['id_anggota' => $anggota->id_anggota]) }}";
+                window.location.href = "{{ route('anggota.detail', ['id_anggota' => $anggota->id_anggota]) }}";
               }
             });
           });
