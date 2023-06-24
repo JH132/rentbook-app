@@ -46,20 +46,25 @@ class AuthController extends Controller
   
     public function loginAction(Request $request)
     {
-        Validator::make($request->all(), [
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required'
-        ])->validate();
-  
-        if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+        ]);
+        
+        $credentials = $request->only('email', 'password');
+        if (!Auth::attempt($credentials, $request->boolean('remember'))) {
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed')
             ]);
         }
-  
-        $request->session()->regenerate();
-  
-        return redirect()->route('dashboard');
+        $user = Auth::user();
+        $status = $user->status;
+        
+        if ($status === 1) {
+            return redirect()->route('dashboard');
+        } else {
+            return redirect()->route('home');
+        }
     }
   
     public function logout(Request $request)
