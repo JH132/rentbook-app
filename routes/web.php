@@ -44,9 +44,12 @@ Route::put('/buku/{id_buku}', [BukuController::class, 'update'])->name('buku.upd
 
 //rute anggota
 Route::get('/anggota/create', [AnggotaController::class, 'create'])->name('anggota.create');
+Route::get('/anggota/createPeminjaman', [AnggotaController::class, 'createPeminjaman'])->name('anggota.createPeminjaman');
+Route::post('/anggota', [AnggotaController::class, 'storePeminjaman'])->name('anggota.storePeminjaman');
 Route::post('/anggota', [AnggotaController::class, 'store'])->name('anggota.store');
 Route::delete('/anggota/delete/{id}', [AnggotaController::class, 'destroy'])->name('anggota.delete');
 Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');
+Route::get('/anggota/lihatPinjam', [AnggotaController::class, 'lihatPinjam'])->name('anggota.lihatPinjam');
 Route::get('/anggota/{id_anggota}', [AnggotaController::class, 'detail'])->name('anggota.detail');
 Route::get('/anggota/{id_anggota}/edit', [AnggotaController::class, 'edit'])->name('anggota.edit');
 Route::put('/anggota/{id_anggota}', [AnggotaController::class, 'update'])->name('anggota.update');
