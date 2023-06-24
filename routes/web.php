@@ -20,7 +20,7 @@ use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\HomeController;
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
 
 
 
@@ -56,12 +56,15 @@ Route::put('/anggota/{id_anggota}', [AnggotaController::class, 'update'])->name(
 
 
 Route::controller(AuthController::class)->group(function () {
-    // Route::get('register', 'register')->name('register');
-    // Route::post('register', 'registerSave')->name('register.save');
-  
+    Route::get('register', 'register')->name('register');
+    Route::post('register', 'registerSave')->name('register.save');
+    
     Route::get('login', 'login')->name('login');
     Route::post('login', 'loginAction')->name('login.action');
-  
+
+//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+    Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
+
     Route::get('logout', 'logout')->middleware('auth')->name('logout');
 });
 
