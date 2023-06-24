@@ -16,13 +16,22 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\AnggotaController;
+
+use App\Http\Controllers\HomeController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::get('/', function () {
+//     return view('Home.index');
+// });
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 //rute buku
 Route::get('/buku/create', [BukuController::class, 'create'])->name('buku.create');
@@ -35,9 +44,12 @@ Route::put('/buku/{id_buku}', [BukuController::class, 'update'])->name('buku.upd
 
 //rute anggota
 Route::get('/anggota/create', [AnggotaController::class, 'create'])->name('anggota.create');
+Route::get('/anggota/createPeminjaman', [AnggotaController::class, 'createPeminjaman'])->name('anggota.createPeminjaman');
+Route::post('/anggota', [AnggotaController::class, 'storePeminjaman'])->name('anggota.storePeminjaman');
 Route::post('/anggota', [AnggotaController::class, 'store'])->name('anggota.store');
 Route::delete('/anggota/delete/{id}', [AnggotaController::class, 'destroy'])->name('anggota.delete');
 Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');
+Route::get('/anggota/lihatPinjam', [AnggotaController::class, 'lihatPinjam'])->name('anggota.lihatPinjam');
 Route::get('/anggota/{id_anggota}', [AnggotaController::class, 'detail'])->name('anggota.detail');
 Route::get('/anggota/{id_anggota}/edit', [AnggotaController::class, 'edit'])->name('anggota.edit');
 Route::put('/anggota/{id_anggota}', [AnggotaController::class, 'update'])->name('anggota.update');
@@ -50,14 +62,14 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('login', 'login')->name('login');
     Route::post('login', 'loginAction')->name('login.action');
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
     Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
     Route::get('logout', 'logout')->middleware('auth')->name('logout');
 });
 
 
-
+//rute peminjaman
 Route::get('/peminjaman/create', [PeminjamanController::class, 'create'])->name('peminjaman.create');
 Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('peminjaman.store');
 Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
@@ -67,16 +79,15 @@ Route::delete('/peminjaman/{id_peminjaman}', [PeminjamanController::class, 'dele
 Route::get('/peminjaman/{id_peminjaman}/edit', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
 Route::put('/peminjaman/{id_peminjaman}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
 
+//rute home
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::get('/home/{id_buku}', [HomeController::class, 'detail'])->name('home.detail');
+
+Route::middleware('auth')->group (function (){
+    Route::get('dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
 
 
-
-
-// Route::get('/dashboard', function () {
-//     // Periksa apakah pengguna sudah login
-//     if (session()->has('username')) {
-//         return view('dashboard');
-//     } else {
-//         return redirect('login');
-//     }
-// });
 

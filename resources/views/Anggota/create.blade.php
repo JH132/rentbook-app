@@ -11,8 +11,9 @@
   </head>
   <body>
     <div class="container">
-        <a href="#">Home/</a>
-        <a href="{{ route('anggota.index') }}">Anggota</a>
+      <a href="{{ route('dashboard') }}">Dashboard/</a>
+        <a href="{{ route('anggota.index') }}">Anggota/</a>
+        <a href="">Tambah</a>
       <h1>Tambah Anggota</h1>
       <form method="POST" action="{{ route('anggota.store') }}">
         @csrf

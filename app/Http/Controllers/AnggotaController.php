@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Peminjaman;
 use App\Models\Anggota;
-
+use App\Models\Buku;
 class AnggotaController extends Controller
 {
     
@@ -26,6 +27,13 @@ class AnggotaController extends Controller
     return view('anggota.index', compact('anggotas'));
     
     }
+    public function lihatPinjam(Request $request)
+    {
+        $search = $request->input('search');
+        $peminjamans = Peminjaman::all();
+        return view('anggota.lihatPinjam', compact('peminjamans', 'search'));
+    }
+
 
     public function detail($id_anggota)
     {
@@ -42,6 +50,25 @@ class AnggotaController extends Controller
     {
         return view('anggota.create');
     }
+    public function createPeminjaman()
+    {
+        $anggotas = Anggota::all();
+        $bukus = Buku::all();
+        return view('anggota.createPeminjaman', compact('anggotas', 'bukus'));
+    }
+    public function storePeminjaman(Request $request)
+{
+    $this->validate($request, [
+        'id_anggota' => 'required',
+        'id_buku' => 'required',
+        'tanggal_peminjaman' => 'required',
+        'tanggal_pengembalian' => 'required',
+    ]);
+
+    Anggota::createPeminjaman($request->all());
+
+    return redirect()->route('anggota.index')->with('success', 'Request peminjaman berhasil disimpan.');
+}
 
     public function store(Request $request)
 {

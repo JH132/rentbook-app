@@ -22,19 +22,21 @@
 </head>
 <body>
     <div class="container">
-        <a href="{{ route('peminjaman.index') }}">Home</a>
+        <a href="{{ route('dashboard') }}">Dashboard/</a>
+        <a href="">Peminjaman</a>
         <h1>Tabel Peminjaman</h1>
         <br>
         <div class="row">
             <div class="col-md-6">
                 <form action="{{ route('peminjaman.index') }}" method="GET">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Cari peminjaman..." name="search" value="{{ request()->input('search') }}">
+                        <input type="text" class="form-control" placeholder="Cari peminjaman..." name="search" value="{{ request()->input('search') }}" id="searchInput">
+                        <input type="hidden" name="filter" value="{{ request()->input('filter') }}">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="submit">Cari</button>
                         </div>
                     </div>
-                </form>
+                </form>                
             </div>
             <div class="col-md-6">
                 <div class="text-right">
@@ -108,6 +110,39 @@
                     },
                     error: function(xhr, status, error) {
                         console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').on('input', function() {
+                var input, filter, table, tr, td, i, txtValue;
+                input = $(this).val();
+                filter = input.toLowerCase();
+                table = $("table");
+                tr = table.find('tbody tr'); // Ubah hanya mencari tr di dalam tbody
+                tr.each(function() {
+                    var match = false;
+                    $(this)
+                        .find('td')
+                        .each(function() {
+                            td = $(this);
+                            if (td) {
+                                txtValue = td
+                                    .text()
+                                    .toLowerCase();
+                                if (txtValue.indexOf(filter) > -1) {
+                                    match = true;
+                                    return false; // Berhenti perulangan saat ada kecocokan
+                                }
+                            }
+                        });
+                    if (match) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
                     }
                 });
             });

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Manajemen Buku</title>
+    <title>Manajemen Peminjaman</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
         body{
@@ -23,28 +23,20 @@
 <body>
     <div class="container">
         <a href="{{ route('dashboard') }}">Dashboard/</a>
-        <a href="">Buku</a>
-        <h1>Tabel Buku</h1>
-
+        <a href="">Peminjaman</a>
+        <h1>Tabel Peminjaman</h1>
         <br>
-
         <div class="row">
             <div class="col-md-6">
-                <!-- Tambahkan search bar di sini -->
-                <form action="{{ route('buku.index') }}" method="GET">
+                <form action="{{ route('peminjaman.index') }}" method="GET">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Cari buku..." name="search" value="{{ request()->input('search') }}" id="searchInput">
+                        <input type="text" class="form-control" placeholder="Cari peminjaman..." name="search" value="{{ request()->input('search') }}" id="searchInput">
                         <input type="hidden" name="filter" value="{{ request()->input('filter') }}">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="submit">Cari</button>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <div class="text-right">
-                    <a href="{{ route('buku.create') }}" class="btn btn-primary">Tambah Buku</a>
-                </div>
+                </form>                
             </div>
         </div>
 
@@ -53,36 +45,42 @@
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                <th class="text-center">ID</th>
-                <th class="text-center">Judul</th>
-                <th class="text-center">Kategori</th>
-                <th class="text-center">Jumlah Buku</th>
-                <th class="text-center">Aksi</th>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Judul Buku</th>
+                    <th class="text-center">Nama Anggota</th>
+                    <th class="text-center">Tanggal Peminjaman</th>
+                    <th class="text-center">Tanggal Pengembalian</th>
+                    <th class="text-center">Status</th>
+                  
                 </tr>
             </thead>
             <tbody>
-                @foreach($bukus as $buku)
-                    @if (strpos(strtolower($buku->id_buku), strtolower(request()->input('search'))) !== false
-                        || strpos(strtolower($buku->judul), strtolower(request()->input('search'))) !== false
-                        || strpos(strtolower($buku->kategori), strtolower(request()->input('search'))) !== false)
+                @foreach($peminjamans as $peminjaman)
+                    @if (strpos($peminjaman->id_peminjaman, $search) !== false || 
+                        strpos($peminjaman->buku->judul, $search) !== false || 
+                        strpos($peminjaman->anggota->nama, $search) !== false || 
+                        strpos($peminjaman->tanggal_pengembalian, $search) !== false || 
+                        strpos($peminjaman->status, $search) !== false)
                         <tr>
-                            <td class="text-center">{{ $buku->id_buku }}</td>
-                            <td class="text-center">{{ $buku->judul }}</td>
-                            <td class="text-center">{{ $buku->kategori }}</td>
-                            <td class="text-center">{{ $buku->jumlah_salinan }}</td>
-                            <td>
-                                <div class="d-flex justify-content-center">
-                                    <a href="{{ route('buku.detail', ['id_buku' => $buku->id_buku]) }}" class="btn btn-info">Detail</a>
-                                </div>
+                            <td class="text-center">{{ $peminjaman->id_peminjaman }}</td>
+                            <td class="text-center">{{ $peminjaman->buku->judul }}</td>
+                            <td class="text-center">{{ $peminjaman->anggota->nama }}</td>
+                            <td class="text-center">{{ $peminjaman->tanggal_peminjaman }}</td>
+                            <td class="text-center">{{ $peminjaman->tanggal_pengembalian }}</td>
+                            <td class="text-center">
+                                <input type="text" class="form-control status-input" value="Diproses" disabled>
+                            </td>
+                            
                             </td>
                         </tr>
                     @endif
                 @endforeach
+
             </tbody>
         </table>
     </div>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#searchInput').on('input', function() {
@@ -115,6 +113,6 @@
                 });
             });
         });
-    </script>   
+    </script>
 </body>
 </html>

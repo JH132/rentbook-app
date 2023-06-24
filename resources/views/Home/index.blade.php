@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Manajemen Buku</title>
+    <title>Home</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
         body{
@@ -22,12 +22,12 @@
 </head>
 <body>
     <div class="container">
-        <a href="{{ route('dashboard') }}">Dashboard/</a>
-        <a href="">Buku</a>
-        <h1>Tabel Buku</h1>
+        <div class="text-right">
+            <a href="{{ route('login') }}" class="btn btn-primary">Login Admin</a>
+        </div>
+        <h1>Daftar Buku</h1>
 
         <br>
-
         <div class="row">
             <div class="col-md-6">
                 <!-- Tambahkan search bar di sini -->
@@ -41,11 +41,6 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-6">
-                <div class="text-right">
-                    <a href="{{ route('buku.create') }}" class="btn btn-primary">Tambah Buku</a>
-                </div>
-            </div>
         </div>
 
         <br>
@@ -56,7 +51,7 @@
                 <th class="text-center">ID</th>
                 <th class="text-center">Judul</th>
                 <th class="text-center">Kategori</th>
-                <th class="text-center">Jumlah Buku</th>
+                <th class="text-center">Jumlah Tersedia</th>
                 <th class="text-center">Aksi</th>
                 </tr>
             </thead>
@@ -69,10 +64,12 @@
                             <td class="text-center">{{ $buku->id_buku }}</td>
                             <td class="text-center">{{ $buku->judul }}</td>
                             <td class="text-center">{{ $buku->kategori }}</td>
-                            <td class="text-center">{{ $buku->jumlah_salinan }}</td>
+                            <td class="text-center" style="color: {{ $buku->jumlah_tersedia == 0 ? 'red' : 'inherit' }}">
+                                {{ $buku->jumlah_tersedia }}
+                            </td>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <a href="{{ route('buku.detail', ['id_buku' => $buku->id_buku]) }}" class="btn btn-info">Detail</a>
+                                    <a href="{{ route('home.detail', ['id_buku' => $buku->id_buku]) }}" class="btn btn-info">Detail</a>
                                 </div>
                             </td>
                         </tr>

@@ -44,8 +44,9 @@
 </head>
 <body>
     <div class="container">
-        <a href="#">Home/</a>
-        <a href="{{ route('peminjaman.index') }}">Peminjaman</a>
+        <a href="{{ route('dashboard') }}">Dashboard/</a>
+        <a href="{{ route('peminjaman.index') }}">Peminjaman/</a>
+        <a href="">{{ $peminjaman->id_peminjaman }}</a>
         <h1>Detail Peminjaman</h1>
         <div class="text-right">
             <div class="d-flex justify-content-end">

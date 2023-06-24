@@ -23,7 +23,8 @@
 </head>
 <body>
     <div class="container">
-        <a href="{{ route('anggota.index') }}">Home</a>
+        <a href="{{ route('dashboard') }}">Dashboard/</a>
+        <a href="{{ route('anggota.index') }}">Anggota</a>
         <h1>Tabel Anggota</h1>
         <br>
         <div class="row">

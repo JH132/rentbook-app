@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Create Buku</title>
+    <title>Tambah Buku</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
     <style>
@@ -12,9 +12,10 @@
   </head>
   <body>
     <div class="container">
-        <a href="#">Home/</a>
-        <a href="{{ route('buku.index') }}">Buku</a>
-      <h1>Create Buku</h1>
+      <a href="{{ route('dashboard') }}">Dashboard/</a>
+      <a href="{{ route('buku.index') }}">Buku/</a>
+      <a href="">Tambah</a>
+      <h1>Tambah Buku</h1>
       <form method="POST" action="{{ route('buku.store') }}">
         @csrf
         <div class="form-group">

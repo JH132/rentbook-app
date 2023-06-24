@@ -12,8 +12,10 @@
   </head>
   <body>
     <div class="container">
-        <a href="#">Home/</a>
-        <a href="{{ route('buku.index') }}">Buku</a>
+      <a href="{{ route('dashboard') }}">Dashboard/</a>
+      <a href="{{ route('buku.index') }}">Buku/</a>
+      <a href="{{ route('buku.detail', ['id_buku' => $buku->id_buku]) }}">{{ $buku->judul }}/</a>
+      <a href="">Edit</a>
       <h1>Edit Buku</h1>
       <br/>
       <form method="POST" action="{{ route('buku.update', $buku->id_buku) }}">
